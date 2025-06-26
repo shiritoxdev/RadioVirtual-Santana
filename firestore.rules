@@ -1,0 +1,68 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Reglas para las noticias
+    match /news/{document} {
+      allow read: if true;  // Cualquiera puede leer noticias
+      allow create, update, delete: if request.auth != null;  // Solo autenticados pueden modificar
+    }
+    
+    // Reglas para los programas/shows
+    match /shows/{document} {
+      allow read: if true;  // Cualquiera puede ver los programas
+      allow create, update, delete: if request.auth != null;  // Solo autenticados pueden modificar
+    }
+    
+    // Reglas para las solicitudes de música
+    match /musicRequests/{requestId} {
+      // Cualquiera puede leer las solicitudes (opcional, podrías restringir esto)
+      allow read: if true;
+      
+      // Cualquiera puede crear una nueva solicitud
+      allow create: if 
+        // Verificar que los campos requeridos estén presentes
+        request.resource.data.track is string &&
+        request.resource.data.artist is string &&
+        request.resource.data.requester is string &&
+        // Verificar que los campos no estén vacíos
+        request.resource.data.track != "" &&
+        request.resource.data.artist != "" &&
+        request.resource.data.requester != "" &&
+        // Verificar que el estado inicial sea 'pending'
+        request.resource.data.status == 'pending' &&
+        // Verificar que no se pueda modificar el timestamp
+        request.resource.data.timestamp == request.time;
+        
+      // Solo usuarios autenticados pueden actualizar/eliminar
+      allow update, delete: if request.auth != null;
+    }
+    
+    // Reglas para los mensajes del chat
+    match /chatMessages/{messageId} {
+      // Cualquiera puede leer los mensajes
+      allow read: if true;
+      
+      // Usuarios autenticados (incluyendo anónimos) pueden escribir
+      allow create: if 
+        // Verifica que el usuario esté autenticado (incluye anónimos)
+        request.auth != null &&
+        // Verifica la estructura del mensaje
+        request.resource.data.username is string &&
+        request.resource.data.username != "" &&
+        request.resource.data.username.size() <= 30 &&
+        request.resource.data.message is string &&
+        request.resource.data.message != "" &&
+        request.resource.data.message.size() <= 500 &&
+        // Tipos de mensaje permitidos
+        request.resource.data.type in ["user", "dj", "system"] &&
+        // Verifica que el timestamp sea un token especial de serverTimestamp o una fecha válida
+        (request.resource.data.timestamp == request.time || 
+         (request.resource.data.timestamp is timestamp && 
+          request.resource.data.timestamp <= request.time + duration.value(5, 's'))) &&
+        // Verifica que el campo createdAt sea una cadena de fecha ISO válida si existe
+        (request.resource.data.createdAt == null || 
+         (request.resource.data.createdAt is string && 
+          request.resource.data.createdAt.matches('^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z?$')))
+    }
+  }
+}

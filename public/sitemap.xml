@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="/sitemap.xsl"?>
+<urlset 
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+  http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <!-- Página principal -->
+  <url>
+    <loc>https://radiosantana.netlify.app/</loc>
+    <lastmod>2025-06-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  
+  <!-- Sección de Programación -->
+  <url>
+    <loc>https://radiosantana.netlify.app/#shows</loc>
+    <lastmod>2025-06-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Noticias -->
+  <url>
+    <loc>https://radiosantana.netlify.app/#news</loc>
+    <lastmod>2025-06-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <!-- Contacto -->
+  <url>
+    <loc>https://radiosantana.netlify.app/#contact</loc>
+    <lastmod>2025-06-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  
+  <!-- Reproductor en Vivo -->
+  <url>
+    <loc>https://radiosantana.netlify.app/#player</loc>
+    <lastmod>2025-06-20</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Chat en Vivo -->
+  <url>
+    <loc>https://radiosantana.netlify.app/#chat</loc>
+    <lastmod>2025-06-20</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <!-- Solicitudes Musicales -->
+  <url>
+    <loc>https://radiosantana.netlify.app/#requests</loc>
+    <lastmod>2025-06-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+</urlset>
